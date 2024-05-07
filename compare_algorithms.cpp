@@ -35,7 +35,7 @@ int main()
     
     cout << "===================================" << endl;
     cout << "-- Bubble Sort Ruim --" << endl;
-    for(int i = 1; i<7; i++)
+    for(int i = 1; i<6; i++)
     {
         Node* head = nullptr;
         for(int j = 0; j<pow(10,i); j++)
@@ -52,7 +52,7 @@ int main()
     
     cout << "===================================" << endl;
     cout << "-- Optmized Bubble Sort --" << endl;
-    for(int i = 1; i<7; i++)
+    for(int i = 1; i<6; i++)
     {
         Node* head = nullptr;
         for(int j = 0; j<pow(10,i); j++)
@@ -70,7 +70,7 @@ int main()
     cout << "===================================" << endl;
 
     cout << "--Selection Sort Ruim--" << endl;
-    for(int i = 1; i<7; i++)
+    for(int i = 1; i<6; i++)
     {
         Node* head = nullptr;
         for(int j = 0; j<pow(10,i); j++)
@@ -88,7 +88,7 @@ int main()
     cout << "===================================" << endl;
 
     cout << "--Optmized Selection Sort--" << endl;
-    for(int i = 1; i<7; i++)
+    for(int i = 1; i<6; i++)
     {
         Node* head = nullptr;
         for(int j = 0; j<pow(10,i); j++)
