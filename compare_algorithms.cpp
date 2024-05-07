@@ -115,7 +115,7 @@ Node* createNode(int iPayload)
     return temp;
 }
 
-// ta dando erro :(
+
 void displayList(Node* node)
 {
     if(node == nullptr)
