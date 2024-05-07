@@ -1,6 +1,9 @@
 #include  <iostream>
 #include <chrono>
 #include <cmath>
+#include <cstdlib>
+#include <ctime>
+
 
 using std::cout;
 using std::endl;
@@ -28,6 +31,7 @@ void bubbleSortRuim(Node**);
 void optmizedbubbleSort(Node**);
 void selectionSortRuim(Node**);
 void optimizedselectionSort(Node**);
+void generateRandomList(Node**, int);
 
 
 int main()
@@ -35,72 +39,68 @@ int main()
     
     cout << "===================================" << endl;
     cout << "-- Bubble Sort Ruim --" << endl;
-    for(int i = 1; i<6; i++)
+    std::chrono::duration<double> TimeBubbleSortRuim[10];
+    for(int i = 0; i<1; i++)
     {
         Node* head = nullptr;
-        for(int j = 0; j<pow(10,i); j++)
-        {
-            insertFront(&head, j);
-        }
+        generateRandomList(&head,pow(10,4));
         auto timeStart = high_resolution_clock::now();
         bubbleSortRuim(&head);
         auto timeStop = high_resolution_clock::now();
         auto timeDuration = duration_cast<nanoseconds>(timeStop - timeStart);
-        cout << "Para " << pow(10,i) << " elementos:" << endl;
+        cout << "Para " << pow(10,4) << " elementos:" << endl;
         cout << "Tempo necessario: " << timeDuration.count()*pow(10,-9) << " segundos" << endl;
+        TimeBubbleSortRuim[i] = std::chrono::seconds(timeDuration.count());
     }
     
     cout << "===================================" << endl;
     cout << "-- Optmized Bubble Sort --" << endl;
-    for(int i = 1; i<6; i++)
+    std::chrono::duration<double> TimeOptmizedBubbleSort[10];
+    for(int i = 0; i<1; i++)
     {
         Node* head = nullptr;
-        for(int j = 0; j<pow(10,i); j++)
-        {
-            insertFront(&head, j);
-        }
+        generateRandomList(&head,pow(10,4));
         auto timeStart = high_resolution_clock::now();
         optmizedbubbleSort(&head);
         auto timeStop = high_resolution_clock::now();
         auto timeDuration = duration_cast<nanoseconds>(timeStop - timeStart);
-        cout << "Para " << pow(10,i) << " elementos:" << endl;
+        cout << "Para " << pow(10,4) << " elementos:" << endl;
         cout << "Tempo necessario: " << timeDuration.count()*pow(10,-9) << " segundos" << endl;
+        TimeOptmizedBubbleSort[i] = std::chrono::seconds(timeDuration.count());
     }
 
     cout << "===================================" << endl;
 
     cout << "--Selection Sort Ruim--" << endl;
-    for(int i = 1; i<6; i++)
+    std::chrono::duration<double> TimeSelectionSortRuim[10];
+    for(int i = 0; i<1; i++)
     {
         Node* head = nullptr;
-        for(int j = 0; j<pow(10,i); j++)
-        {
-            insertFront(&head, j);
-        }
+        generateRandomList(&head,pow(10,4));
         auto timeStart = high_resolution_clock::now();
         selectionSortRuim(&head);
         auto timeStop = high_resolution_clock::now();
         auto timeDuration = duration_cast<nanoseconds>(timeStop - timeStart);
-        cout << "Para " << pow(10,i) << " elementos:" << endl;
+        cout << "Para " << pow(10,4) << " elementos:" << endl;
         cout << "Tempo necessario: " << timeDuration.count()*pow(10,-9) << " segundos" << endl;
+        TimeSelectionSortRuim[i] = std::chrono::seconds(timeDuration.count());
     }
 
     cout << "===================================" << endl;
 
     cout << "--Optmized Selection Sort--" << endl;
-    for(int i = 1; i<6; i++)
+    std::chrono::duration<double> TimeOptmizedSelectionSort[10];
+    for(int i = 0; i<1; i++)
     {
         Node* head = nullptr;
-        for(int j = 0; j<pow(10,i); j++)
-        {
-            insertFront(&head, j);
-        }
+        generateRandomList(&head,pow(10,4));
         auto timeStart = high_resolution_clock::now();
         optimizedselectionSort(&head);
         auto timeStop = high_resolution_clock::now();
         auto timeDuration = duration_cast<nanoseconds>(timeStop - timeStart);
-        cout << "Para " << pow(10,i) << " elementos:" << endl;
+        cout << "Para " << pow(10,4) << " elementos:" << endl;
         cout << "Tempo necessario: " << timeDuration.count()*pow(10,-9) << " segundos" << endl;
+        TimeOptmizedSelectionSort[i] = std::chrono::seconds(timeDuration.count());
     }
 
     return 0;
@@ -259,5 +259,16 @@ void optimizedselectionSort(Node** head) {
         }
 
         current = current->ptrNext;
+    }
+}
+
+
+void generateRandomList(Node **head, int size)
+{
+    srand(time(nullptr));
+    for (int i = 0; i < size; ++i)
+    {
+        int randomNum = rand() % 100;
+        insertFront(head, randomNum);
     }
 }
