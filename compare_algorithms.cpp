@@ -1,14 +1,17 @@
 #include  <iostream>
 #include <chrono>
-#include <ctime>
+#include <cmath>
 
 using std::cout;
 using std::endl;
 using std::cin;
 using std::string;
+using std::pow;
 using std::chrono::high_resolution_clock;
 using std::chrono::duration_cast;
 using std::chrono::nanoseconds;
+
+
 
 typedef struct Node
 {
@@ -25,98 +28,80 @@ void bubbleSortRuim(Node**);
 void optmizedbubbleSort(Node**);
 void selectionSortRuim(Node**);
 void optimizedselectionSort(Node**);
-void generateRandomList(Node** head, int size);
+
 
 int main()
 {
-    Node* head = nullptr;
+    
     cout << "===================================" << endl;
     cout << "-- Bubble Sort Ruim --" << endl;
-    int arriNumbers[] = {42, 7, 0, 3, 666, 1, 111, 10, 13};
-    
-    void generateRandomList(&head, 100);
-    cout << "Arrayy original: ";
-    displayList(head);
-    
-    auto timeStart = high_resolution_clock::now();
-    bubbleSortRuim(&head);
-    auto timeStop = high_resolution_clock::now();
-    
-    cout << "Arrayy ordenado: ";
-    displayList(head);
-    
-    auto timeDuration = duration_cast<nanoseconds>(timeStop - timeStart);
-    cout << "Tempo utilizado: " << endl;
-    cout << timeDuration.count() << " nanosegundos" << endl;
+    for(int i = 1; i<7; i++)
+    {
+        Node* head = nullptr;
+        for(int j = 0; j<pow(10,i); j++)
+        {
+            insertFront(&head, j);
+        }
+        auto timeStart = high_resolution_clock::now();
+        bubbleSortRuim(&head);
+        auto timeStop = high_resolution_clock::now();
+        auto timeDuration = duration_cast<nanoseconds>(timeStop - timeStart);
+        cout << "Para " << pow(10,i) << " elementos:" << endl;
+        cout << "Tempo necessario: " << timeDuration.count()*pow(10,-9) << " segundos" << endl;
+    }
     
     cout << "===================================" << endl;
-    Node* head2 = nullptr;
-    cout << "--Optimized Bubble Sort--" << endl;
-    int arriNumbers_2[] = {42, 7, 0, 3, 666, 1, 111, 10, 13};
-    int iArraySize_2 = sizeof(arriNumbers_2)/sizeof(arriNumbers_2[0]);
-    for(int i = 0; i<iArraySize_2; i++)
+    cout << "-- Optmized Bubble Sort --" << endl;
+    for(int i = 1; i<7; i++)
     {
-        insertFront(&head2, arriNumbers_2[i]);
+        Node* head = nullptr;
+        for(int j = 0; j<pow(10,i); j++)
+        {
+            insertFront(&head, j);
+        }
+        auto timeStart = high_resolution_clock::now();
+        optmizedbubbleSort(&head);
+        auto timeStop = high_resolution_clock::now();
+        auto timeDuration = duration_cast<nanoseconds>(timeStop - timeStart);
+        cout << "Para " << pow(10,i) << " elementos:" << endl;
+        cout << "Tempo necessario: " << timeDuration.count()*pow(10,-9) << " segundos" << endl;
     }
-    cout << "Array 2 original: ";
-    displayList(head2);
-    
-    timeStart = high_resolution_clock::now();
-    optmizedbubbleSort(&head2);
-    timeStop = high_resolution_clock::now();
-    
-    cout << "Array 2 ordenado: ";
-    displayList(head2);
-    
-    timeDuration = duration_cast<nanoseconds>(timeStop - timeStart);
-    cout << "Tempo utilizado: " << endl;
-    cout << timeDuration.count() << " nanosegundos" << endl;
 
     cout << "===================================" << endl;
-    Node* head3 = nullptr;
+
     cout << "--Selection Sort Ruim--" << endl;
-    int arriNumbers_3[] = {42, 7, 0, 3, 666, 1, 111, 10, 13};
-    int iArraySize_3 = sizeof(arriNumbers_3)/sizeof(arriNumbers_3[0]);
-    for(int i = 0; i<iArraySize_3; i++)
+    for(int i = 1; i<7; i++)
     {
-        insertFront(&head3, arriNumbers_3[i]);
+        Node* head = nullptr;
+        for(int j = 0; j<pow(10,i); j++)
+        {
+            insertFront(&head, j);
+        }
+        auto timeStart = high_resolution_clock::now();
+        selectionSortRuim(&head);
+        auto timeStop = high_resolution_clock::now();
+        auto timeDuration = duration_cast<nanoseconds>(timeStop - timeStart);
+        cout << "Para " << pow(10,i) << " elementos:" << endl;
+        cout << "Tempo necessario: " << timeDuration.count()*pow(10,-9) << " segundos" << endl;
     }
-    cout << "Array 3 original: ";
-    displayList(head3);
-    
-    timeStart = high_resolution_clock::now();
-    selectionSortRuim(&head3);
-    timeStop = high_resolution_clock::now();
-    
-    cout << "Array 3 ordenado: ";
-    displayList(head3);
-    
-    timeDuration = duration_cast<nanoseconds>(timeStop - timeStart);
-    cout << "Tempo utilizado: " << endl;
-    cout << timeDuration.count() << " nanosegundos" << endl;
 
     cout << "===================================" << endl;
-    Node* head4 = nullptr;
+
     cout << "--Optmized Selection Sort--" << endl;
-    int arriNumbers_4[] = {42, 7, 0, 3, 666, 1, 111, 10, 13};
-    int iArraySize_4 = sizeof(arriNumbers_4)/sizeof(arriNumbers_4[0]);
-    for(int i = 0; i<iArraySize_4; i++)
+    for(int i = 1; i<7; i++)
     {
-        insertFront(&head4, arriNumbers_4[i]);
+        Node* head = nullptr;
+        for(int j = 0; j<pow(10,i); j++)
+        {
+            insertFront(&head, j);
+        }
+        auto timeStart = high_resolution_clock::now();
+        optimizedselectionSort(&head);
+        auto timeStop = high_resolution_clock::now();
+        auto timeDuration = duration_cast<nanoseconds>(timeStop - timeStart);
+        cout << "Para " << pow(10,i) << " elementos:" << endl;
+        cout << "Tempo necessario: " << timeDuration.count()*pow(10,-9) << " segundos" << endl;
     }
-    cout << "Array 4 original: ";
-    displayList(head4);
-    
-    timeStart = high_resolution_clock::now();
-    optimizedselectionSort(&head4);
-    timeStop = high_resolution_clock::now();
-    
-    cout << "Array 4 ordenado: ";
-    displayList(head4);
-    
-    timeDuration = duration_cast<nanoseconds>(timeStop - timeStart);
-    cout << "Tempo utilizado: " << endl;
-    cout << timeDuration.count() << " nanosegundos" << endl;
 
     return 0;
 }
@@ -248,44 +233,31 @@ void selectionSortRuim(Node** head)
     }
 }
 
-void optimizedselectionSort(Node** head)
-{
-    int minValue = 0;
-    Node* changed = nullptr;
+void optimizedselectionSort(Node** head) {
+    Node* minNode = nullptr;
+    
     Node* current = *head;
-    while (current != nullptr)
+    while (current != nullptr) 
     {
-        minValue = current->iPayload;
+        minNode = current;
+        
         Node* temp = current->ptrNext;
-        while(temp != nullptr)
+        while (temp != nullptr) 
         {
-            if(minValue > temp->iPayload)
+            if (temp->iPayload < minNode->iPayload) 
             {
-                minValue = temp->iPayload;
-                changed = temp;
+                minNode = temp;
             }
             temp = temp->ptrNext;
         }
-        
-        // fazer o swap somente se tiver algum valor que seja menor que current->iPayload
-        if(changed != nullptr)
+
+        if (minNode != current) 
         {
-            int iTemp = current->iPayload;
-            current->iPayload = minValue; 
-            changed->iPayload = iTemp;
+            int iTemp = minNode->iPayload;
+            minNode->iPayload = current->iPayload;
+            current->iPayload = iTemp;
         }
-    
+
         current = current->ptrNext;
-    }
-
-}
-
-void generateRandomList(Node** head, int size)
-{
-        srand(time(nullptr));
-    for (int i = 0; i < size; ++i)
-    {
-        int randomNum = rand() % 100;
-        insertFront(head, randomNum);
     }
 }
