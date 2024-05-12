@@ -15,13 +15,13 @@ using std::chrono::duration_cast;
 using std::chrono::nanoseconds;
 
 
-
 typedef struct Node
 {
     int iPayload;
     Node* ptrNext;
     Node* ptrPrev;
 } Node;
+
 
 Node* createNode(int);
 void insertFront(Node**, int);
@@ -32,79 +32,42 @@ void optmizedbubbleSort(Node**);
 void selectionSortRuim(Node**);
 void optimizedselectionSort(Node**);
 void generateRandomList(Node**, int);
+void insertionSort(Node**);
+std::chrono::duration<double>* testAlgorithms(void (*algorithms)(Node**), int, int);
 
 
 int main()
 {
-    
+    int iLength = pow(10, 4);
+    int iNumTests = 1;
     cout << "===================================" << endl;
     cout << "-- Bubble Sort Ruim --" << endl;
-    std::chrono::duration<double> TimeBubbleSortRuim[10];
-    for(int i = 0; i<1; i++)
-    {
-        Node* head = nullptr;
-        generateRandomList(&head,pow(10,4));
-        auto timeStart = high_resolution_clock::now();
-        bubbleSortRuim(&head);
-        auto timeStop = high_resolution_clock::now();
-        auto timeDuration = duration_cast<nanoseconds>(timeStop - timeStart);
-        cout << "Para " << pow(10,4) << " elementos:" << endl;
-        cout << "Tempo necessario: " << timeDuration.count()*pow(10,-9) << " segundos" << endl;
-        TimeBubbleSortRuim[i] = std::chrono::seconds(timeDuration.count());
-    }
+    auto TimeBubbleSortRuim = testAlgorithms(bubbleSortRuim, iLength, iNumTests);
+    cout << TimeBubbleSortRuim[0].count() * pow(10, -9) << " segundos" << endl;
     
     cout << "===================================" << endl;
     cout << "-- Optmized Bubble Sort --" << endl;
-    std::chrono::duration<double> TimeOptmizedBubbleSort[10];
-    for(int i = 0; i<1; i++)
-    {
-        Node* head = nullptr;
-        generateRandomList(&head,pow(10,4));
-        auto timeStart = high_resolution_clock::now();
-        optmizedbubbleSort(&head);
-        auto timeStop = high_resolution_clock::now();
-        auto timeDuration = duration_cast<nanoseconds>(timeStop - timeStart);
-        cout << "Para " << pow(10,4) << " elementos:" << endl;
-        cout << "Tempo necessario: " << timeDuration.count()*pow(10,-9) << " segundos" << endl;
-        TimeOptmizedBubbleSort[i] = std::chrono::seconds(timeDuration.count());
-    }
+    auto TimeOptimizedBubbleSort = testAlgorithms(optmizedbubbleSort, iLength, iNumTests);
+    cout << TimeOptimizedBubbleSort[0].count() * pow(10, -9) << " segundos" << endl;
 
     cout << "===================================" << endl;
-
     cout << "--Selection Sort Ruim--" << endl;
-    std::chrono::duration<double> TimeSelectionSortRuim[10];
-    for(int i = 0; i<1; i++)
-    {
-        Node* head = nullptr;
-        generateRandomList(&head,pow(10,4));
-        auto timeStart = high_resolution_clock::now();
-        selectionSortRuim(&head);
-        auto timeStop = high_resolution_clock::now();
-        auto timeDuration = duration_cast<nanoseconds>(timeStop - timeStart);
-        cout << "Para " << pow(10,4) << " elementos:" << endl;
-        cout << "Tempo necessario: " << timeDuration.count()*pow(10,-9) << " segundos" << endl;
-        TimeSelectionSortRuim[i] = std::chrono::seconds(timeDuration.count());
-    }
+    auto TimeSelectionSortRuim = testAlgorithms(selectionSortRuim, iLength, iNumTests);
+    cout << TimeSelectionSortRuim[0].count() * pow(10, -9) << " segundos" << endl;
 
     cout << "===================================" << endl;
-
     cout << "--Optmized Selection Sort--" << endl;
-    std::chrono::duration<double> TimeOptmizedSelectionSort[10];
-    for(int i = 0; i<1; i++)
-    {
-        Node* head = nullptr;
-        generateRandomList(&head,pow(10,4));
-        auto timeStart = high_resolution_clock::now();
-        optimizedselectionSort(&head);
-        auto timeStop = high_resolution_clock::now();
-        auto timeDuration = duration_cast<nanoseconds>(timeStop - timeStart);
-        cout << "Para " << pow(10,4) << " elementos:" << endl;
-        cout << "Tempo necessario: " << timeDuration.count()*pow(10,-9) << " segundos" << endl;
-        TimeOptmizedSelectionSort[i] = std::chrono::seconds(timeDuration.count());
-    }
+    auto TimeOptimizedSelectionSort = testAlgorithms(optimizedselectionSort, iLength, iNumTests);
+    cout << TimeOptimizedSelectionSort[0].count() * pow(10, -9) << " segundos" << endl;
+
+    cout << "===================================" << endl;
+    cout << "--Insertion Sort--" << endl;
+    auto TimeInsertionSort = testAlgorithms(insertionSort, iLength, iNumTests);
+    cout << TimeInsertionSort[0].count() * pow(10, -9) << " segundos" << endl;
 
     return 0;
 }
+
 
 Node* createNode(int iPayload)
 {
@@ -233,6 +196,7 @@ void selectionSortRuim(Node** head)
     }
 }
 
+
 void optimizedselectionSort(Node** head) {
     Node* minNode = nullptr;
     
@@ -263,6 +227,31 @@ void optimizedselectionSort(Node** head) {
 }
 
 
+void insertionSort(Node** head) 
+{
+    Node* current = (*head)->ptrNext;
+    while (current != nullptr) 
+    {
+        int InsertValue = current->iPayload;
+        Node* temp = current->ptrPrev;
+        while (temp != nullptr && temp->iPayload > InsertValue) 
+        { 
+            temp->ptrNext->iPayload = temp->iPayload;
+            temp = temp->ptrPrev;
+        }
+        if (temp == nullptr) 
+        { 
+            (*head)->iPayload = InsertValue;
+        } 
+        else 
+        {
+            temp->ptrNext->iPayload = InsertValue;
+        }
+        current = current->ptrNext;
+    }
+}
+
+
 void generateRandomList(Node **head, int size)
 {
     srand(time(nullptr));
@@ -271,4 +260,20 @@ void generateRandomList(Node **head, int size)
         int randomNum = rand() % 100;
         insertFront(head, randomNum);
     }
+}
+
+
+std::chrono::duration<double>* testAlgorithms(void (*algorithms)(Node**), int iLength, int iNumTests) {
+    auto TestsTime = new std::chrono::duration<double>[iNumTests];
+    for(int i = 0; i < iNumTests; i++) 
+    {
+        Node* head = nullptr;
+        generateRandomList(&head, iLength);
+        auto timeStart = high_resolution_clock::now();
+        algorithms(&head);
+        auto timeStop = high_resolution_clock::now();
+        auto timeDuration = duration_cast<nanoseconds>(timeStop - timeStart);
+        TestsTime[i] = std::chrono::seconds(timeDuration.count());
+    }
+    return TestsTime;
 }
