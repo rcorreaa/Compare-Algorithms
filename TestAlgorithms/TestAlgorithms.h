@@ -1,5 +1,7 @@
 #pragma once
 
 #include "../DLL/DoubleLinkedList.h"
+#include <chrono>
+#include <string>
 
-std::chrono::duration<double>* testAlgorithms(void (*algorithms)(Node**), int, int);
+void testAlgorithms(void (*algorithms)(Node**), int iLength, int iNumTests, const std::string& filename);
