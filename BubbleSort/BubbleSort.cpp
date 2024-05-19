@@ -4,7 +4,8 @@
 
 using namespace std;
 
-void bubbleSortRuim(Node** head) {
+void bubbleSortRuim(Node** head) 
+{
     Node* current = *head;
     while (current->ptrNext != nullptr) 
     {
@@ -53,10 +54,4 @@ void optmizedbubbleSort(Node** head)
         current = current->ptrNext;
         last = last->ptrPrev;
     }
-}
-
-
-int soma(int x, int y)
-{
-    return x+y;
 }

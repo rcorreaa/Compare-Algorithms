@@ -27,7 +27,7 @@ void testAlgorithms(void (*algorithms)(Node**), int iLength, int iNumTests, cons
         algorithms(&head);
         auto timeStop = high_resolution_clock::now();
         auto timeDuration = duration_cast<nanoseconds>(timeStop - timeStart);
-        outFile << timeDuration.count() * 1e-9 << " seconds" << endl;
+        outFile << timeDuration.count() * 1e-9 << endl;
 
         // Deleta a lista
         while (head != nullptr) 

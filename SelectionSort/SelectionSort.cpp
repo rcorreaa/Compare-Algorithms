@@ -4,12 +4,16 @@
 
 using namespace std;
 
-void selectionSortRuim(Node** head) {
+void selectionSortRuim(Node** head) 
+{
     Node* current = *head;
-    while (current != nullptr) {
+    while (current != nullptr) 
+    {
         Node* temp = current->ptrNext;
-        while (temp != nullptr) {
-            if (current->iPayload > temp->iPayload) {
+        while (temp != nullptr) 
+        {
+            if (current->iPayload > temp->iPayload) 
+            {
                 int iTemp = temp->iPayload;
                 temp->iPayload = current->iPayload;
                 current->iPayload = iTemp;
@@ -20,14 +24,18 @@ void selectionSortRuim(Node** head) {
     }
 }
 
-void optimizedselectionSort(Node** head) {
+void optimizedselectionSort(Node** head) 
+{
     Node* minNode = nullptr;
     Node* current = *head;
-    while (current != nullptr) {
+    while (current != nullptr) 
+    {
         minNode = current;
         Node* temp = current->ptrNext;
-        while (temp != nullptr) {
-            if (temp->iPayload < minNode->iPayload) {
+        while (temp != nullptr) 
+        {
+            if (temp->iPayload < minNode->iPayload) 
+            {
                 minNode = temp;
             }
             temp = temp->ptrNext;
