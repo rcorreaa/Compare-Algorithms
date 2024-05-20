@@ -57,7 +57,7 @@ void generateRandomList(Node **head, int size)
     srand(time(nullptr));
     for (int i = 0; i < size; ++i)
     {
-        int randomNum = rand() % 100;
+        int randomNum = rand() % 100 + 1; // gear inteiros de 1 a 100
         insertFront(head, randomNum);
     }
 }
