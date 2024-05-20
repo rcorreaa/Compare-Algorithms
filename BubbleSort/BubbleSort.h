@@ -4,4 +4,4 @@
 
 void bubbleSortRuim(Node**);
 void optmizedbubbleSort(Node**);
-int soma(int,int);
+
