@@ -34,7 +34,7 @@ void ShellSort(Node** head)
     }
     
     // começa o algoritimo
-    while(current != *head)
+    while(current != *head && iGap>0)
     {
         Node* outerLoop = current;
         while(outerLoop->ptrNext != nullptr)
@@ -71,19 +71,20 @@ void ShellSort(Node** head)
                     innerLoop = innerLoop->ptrPrev;
                 }
             } 
-
-
+            innerLoop->iPayload = iTemp;
             outerLoop = outerLoop->ptrNext;
         }
-        
-        
-        
-        
-        
-        
-        
-        current = current->ptrPrev;
+        iGap = iGap/2;
+        for(int i=0;i++;i<iGap){
+            current = current->ptrPrev;
+        }
     }
+}
 
-
+int main(){
+    Node* head = nullptr;
+    generateRandomList(&head, 10);
+    displayList(head);
+    ShellSort(&head);
+    displayList(head);
 }
