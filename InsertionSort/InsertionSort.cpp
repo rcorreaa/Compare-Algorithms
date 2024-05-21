@@ -2,18 +2,17 @@
 #include <iostream>
 
 using namespace std;
-using namespace DLL;
 
-namespace InsertionSort {
+namespace cpa {
 
 template<typename T>
-void insertionSort(DLL::Node<T>** head) 
+void insertionSort(Node<T>** head) 
 {
-    DLL::Node<T>* current = (*head)->ptrNext;
+    Node<T>* current = (*head)->ptrNext;
     while (current != nullptr) 
     {
         T InsertValue = current->iPayload;
-        DLL::Node<T>* temp = current->ptrPrev;
+        Node<T>* temp = current->ptrPrev;
         while (temp != nullptr && temp->iPayload > InsertValue) 
         { 
             temp->ptrNext->iPayload = temp->iPayload;
@@ -31,7 +30,7 @@ void insertionSort(DLL::Node<T>** head)
     }
 }
 
-// Explicit instantiation of the template functions you plan to use
-template void insertionSort<int>(DLL::Node<int>**);
+// Explicit instantiation
+template void insertionSort<int>(Node<int>**);
 
 } // namespace InsertionSort

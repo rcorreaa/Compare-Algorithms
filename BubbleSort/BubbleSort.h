@@ -2,12 +2,12 @@
 
 #include "../DLL/DoubleLinkedList.h"
 
-namespace BubbleSort {
+namespace cpa {
 
 template<typename T>
-void bubbleSortRuim(DLL::Node<T>** head);
+void bubbleSortRuim(cpa::Node<T>** head);
 
 template<typename T>
-void optimizedBubbleSort(DLL::Node<T>** head);
+void optimizedBubbleSort(cpa::Node<T>** head);
 
 }

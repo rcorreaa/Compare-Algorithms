@@ -1,7 +1,7 @@
 #pragma once
 
 
-namespace DLL {
+namespace cpa {
 
 template<typename T>
 struct Node {
@@ -24,5 +24,8 @@ void generateRandomList(Node<T> **head, int size);
 
 template<typename T>
 int countElements(Node<T>** head);
+
+template<typename T>
+Node<T>* getNode(Node<T>*,int);
 
 }

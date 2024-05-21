@@ -6,10 +6,10 @@
 using namespace std;
 using namespace std::chrono;
 
-namespace TestAlgorithms {
+namespace cpa {
 
 template<typename T>
-void testAlgorithms(void (*algorithms)(DLL::Node<T>**), int iLength, int iNumTests, const std::string& filename) 
+void testAlgorithms(void (*algorithms)(cpa::Node<T>**), int iLength, int iNumTests, const std::string& filename) 
 {
     std::string directory = "DadosDesempenho";
     std::string fullPath = directory + "/" + filename;
@@ -24,8 +24,8 @@ void testAlgorithms(void (*algorithms)(DLL::Node<T>**), int iLength, int iNumTes
     // Calculate times
     for(int i = 0; i < iNumTests; i++) 
     {
-        DLL::Node<T>* head = nullptr;
-        DLL::generateRandomList<T>(&head, iLength);
+        cpa::Node<T>* head = nullptr;
+        cpa::generateRandomList<T>(&head, iLength);
         auto timeStart = high_resolution_clock::now();
         algorithms(&head);
         auto timeStop = high_resolution_clock::now();
@@ -35,7 +35,7 @@ void testAlgorithms(void (*algorithms)(DLL::Node<T>**), int iLength, int iNumTes
         // Delete the list
         while (head != nullptr) 
         {
-            DLL::Node<T>* temp = head;
+            cpa::Node<T>* temp = head;
             head = head->ptrNext;
             delete temp;
         }
@@ -45,6 +45,6 @@ void testAlgorithms(void (*algorithms)(DLL::Node<T>**), int iLength, int iNumTes
 }
 
 // Explicit instantiation of the template functions you plan to use
-template void testAlgorithms<int>(void (*algorithms)(DLL::Node<int>**), int iLength, int iNumTests, const std::string& filename);
+template void testAlgorithms<int>(void (*algorithms)(cpa::Node<int>**), int iLength, int iNumTests, const std::string& filename);
 
 }

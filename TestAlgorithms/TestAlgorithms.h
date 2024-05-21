@@ -4,9 +4,9 @@
 #include <chrono>
 #include "../DLL/DoubleLinkedList.h"
 
-namespace TestAlgorithms {
+namespace cpa {
 
 template<typename T>
-void testAlgorithms(void (*algorithms)(DLL::Node<T>**), int iLength, int iNumTests, const std::string& filename);
+void testAlgorithms(void (*algorithms)(cpa::Node<T>**), int iLength, int iNumTests, const std::string& filename);
 
 }

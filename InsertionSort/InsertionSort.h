@@ -2,11 +2,10 @@
 
 #include "../DLL/DoubleLinkedList.h"
 
-using namespace DLL;
 
-namespace InsertionSort {
+namespace cpa {
 
 template<typename T>
-void insertionSort(DLL::Node<T>** head);
+void insertionSort(cpa::Node<T>** head);
 
 }

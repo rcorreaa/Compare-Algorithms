@@ -5,7 +5,7 @@
 
 using namespace std;
 
-namespace DLL {
+namespace cpa {
 
 template<typename T>
 Node<T>* createNode(T iPayload) 
@@ -80,11 +80,24 @@ int countElements(Node<T>** head)
     return iCount;
 }
 
-// Explicit instantiation of the template functions you plan to use
+
+template<typename T>
+Node<T>* getNode(Node<T>* head, int index) 
+{
+    Node<T>* current = head;
+    for (int i = 0; i < index && current != nullptr; i++) 
+    {
+        current = current->ptrNext;
+    }
+    return current;
+}
+
+// Explicit instantiation
 template Node<int>* createNode<int>(int);
 template void insertFront<int>(Node<int>**, int);
 template void displayList<int>(Node<int>*);
 template void generateRandomList<int>(Node<int>**, int);
 template int countElements<int>(Node<int>**);
+template Node<int>* getNode(Node<int>*, int);
 
 }

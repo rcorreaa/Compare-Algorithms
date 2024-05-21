@@ -2,17 +2,16 @@
 #include <iostream>
 
 using namespace std;
-using namespace DLL;
 
-namespace SelectionSort {
+namespace cpa {
 
 template<typename T>
-void selectionSortRuim(DLL::Node<T>** head) 
+void selectionSortRuim(Node<T>** head) 
 {
-    DLL::Node<T>* current = *head;
+    Node<T>* current = *head;
     while (current != nullptr) 
     {
-        DLL::Node<T>* temp = current->ptrNext;
+        Node<T>* temp = current->ptrNext;
         while (temp != nullptr) 
         {
             if (current->iPayload > temp->iPayload) 
@@ -28,14 +27,14 @@ void selectionSortRuim(DLL::Node<T>** head)
 }
 
 template<typename T>
-void optimizedSelectionSort(DLL::Node<T>** head) 
+void optimizedSelectionSort(Node<T>** head) 
 {
-    DLL::Node<T>* minNode = nullptr;
-    DLL::Node<T>* current = *head;
+    Node<T>* minNode = nullptr;
+    Node<T>* current = *head;
     while (current != nullptr) 
     {
         minNode = current;
-        DLL::Node<T>* temp = current->ptrNext;
+        Node<T>* temp = current->ptrNext;
         while (temp != nullptr) 
         {
             if (temp->iPayload < minNode->iPayload) 
@@ -54,7 +53,7 @@ void optimizedSelectionSort(DLL::Node<T>** head)
 }
 
 // Explicit instantiation of the template functions
-template void selectionSortRuim<int>(DLL::Node<int>**);
-template void optimizedSelectionSort<int>(DLL::Node<int>**);
+template void selectionSortRuim<int>(Node<int>**);
+template void optimizedSelectionSort<int>(Node<int>**);
 
 }

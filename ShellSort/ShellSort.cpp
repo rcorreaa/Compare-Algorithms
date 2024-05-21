@@ -4,75 +4,41 @@
 
 using namespace std;
 
-void ShellSort(Node** head)
+namespace cpa{
+
+template <typename T>
+void shellSort(Node<T>** head) 
 {
     int iLength = countElements(head);
-    if(*head == nullptr)
+    if (*head == nullptr) 
     {
         return;
     }
-    int iGap = iLength / 2;
-    Node* current = *head;
-    int iCount = 0;
-    // encontra o gap
-    while(iCount != iGap)
+
+    for (int iGap = iLength / 2; iGap > 0; iGap /= 2) 
     {
-        current = current->ptrNext;
-        iCount++;
-    }
-    
-    // começa o algoritimo
-    while(current != *head && iGap>0)
-    {
-        Node* outerLoop = current;
-        while(outerLoop->ptrNext != nullptr)
+        for (int i = iGap; i < iLength; i++) 
         {
-            int iTemp = outerLoop->iPayload;
-            Node* innerLoop = outerLoop;
-            
-            // vamos achar o J, (lembrar do codigo python)
-            int iFindInnerLoop = 0;
-            Node* auxCurrent = *head;
-            while(auxCurrent != innerLoop)
-            {
-                iFindInnerLoop++;
-                auxCurrent = auxCurrent->ptrNext;
-            }
-            // agora temos o j
+            Node<T>* temp = getNode(*head, i);
+            T iTemp = temp->iPayload;
 
-            // indo para j-gap
-            int iJMenosGap = iFindInnerLoop - iGap;
-            auxCurrent = *head;
-            int iauxCount = 0;
-            while(iauxCount <iJMenosGap)
+            Node<T>* inner = temp;
+            int j = i;
+            while (j >= iGap) 
             {
-                iauxCount++;
-                auxCurrent = auxCurrent->ptrNext;
-            }
-            // achamos o arr[j-gap] (auxCurrent)
-
-            while(innerLoop != current->ptrPrev && auxCurrent->iPayload > iTemp)
-            {
-                innerLoop->iPayload = auxCurrent->iPayload;
-                for(int i = 0; i++; i<iGap)
+                Node<T>* innerGap = getNode(*head, j - iGap);
+                if (innerGap->iPayload <= iTemp) 
                 {
-                    innerLoop = innerLoop->ptrPrev;
+                    break;
                 }
-            } 
-            innerLoop->iPayload = iTemp;
-            outerLoop = outerLoop->ptrNext;
-        }
-        iGap = iGap/2;
-        for(int i=0;i++;i<iGap){
-            current = current->ptrPrev;
+                inner->iPayload = innerGap->iPayload;
+                inner = innerGap;
+                j -= iGap;
+            }
+            inner->iPayload = iTemp;
         }
     }
 }
 
-int main(){
-    Node* head = nullptr;
-    generateRandomList(&head, 10);
-    displayList(head);
-    ShellSort(&head);
-    displayList(head);
+template void shellSort<int>(Node<int>**);
 }

@@ -3,15 +3,15 @@
 
 using namespace std;
 
-namespace BubbleSort {
+namespace cpa {
 
 template<typename T>
-void bubbleSortRuim(DLL::Node<T>** head) 
+void bubbleSortRuim(Node<T>** head) 
 {
-    DLL::Node<T>* current = *head;
+    Node<T>* current = *head;
     while (current->ptrNext != nullptr) 
     {
-        DLL::Node<T>* temp = *head;
+        Node<T>* temp = *head;
         while (temp->ptrNext != nullptr) 
         {
             if (temp->iPayload > temp->ptrNext->iPayload)
@@ -27,19 +27,19 @@ void bubbleSortRuim(DLL::Node<T>** head)
 }
 
 template<typename T>
-void optimizedBubbleSort(DLL::Node<T>** head)
+void optimizedBubbleSort(Node<T>** head)
 {
-    DLL::Node<T>* last = *head;
+    Node<T>* last = *head;
     while(last->ptrNext != nullptr)
     {
         last = last->ptrNext;
     }
     
-    DLL::Node<T>* current = *head;
+    Node<T>* current = *head;
     bool bUnordered = false;
     while (current->ptrNext != nullptr) 
     {
-        DLL::Node<T>* temp = *head;
+        Node<T>* temp = *head;
         bUnordered = false;
         while ((temp->ptrNext != nullptr) && (temp != last)) 
         {
@@ -59,7 +59,7 @@ void optimizedBubbleSort(DLL::Node<T>** head)
 }
 
 // Explicit instantiation of the template functions you plan to use
-template void bubbleSortRuim<int>(DLL::Node<int>**);
-template void optimizedBubbleSort<int>(DLL::Node<int>**);
+template void bubbleSortRuim<int>(Node<int>**);
+template void optimizedBubbleSort<int>(Node<int>**);
 
 } 

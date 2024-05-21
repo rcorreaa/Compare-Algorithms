@@ -1,11 +1,8 @@
 #include <iostream>
-#include "DLL/DoubleLinkedList.h"
-#include "BubbleSort/BubbleSort.h"
-#include "TestAlgorithms/TestAlgorithms.h"
+#include "MainHeader/cpa.h"
 
 using namespace std;
-using namespace TestAlgorithms;
-using namespace BubbleSort;
+using namespace cpa;
 
 int main() 
 {

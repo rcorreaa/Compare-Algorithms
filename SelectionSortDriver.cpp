@@ -1,11 +1,8 @@
 #include <iostream>
-#include "DLL/DoubleLinkedList.h"
-#include "SelectionSort/SelectionSort.h"
-#include "TestAlgorithms/TestAlgorithms.h"
+#include "MainHeader/cpa.h"
 
 using namespace std;
-using namespace SelectionSort;
-using namespace TestAlgorithms;
+using namespace cpa;
 
 int main() 
 {
