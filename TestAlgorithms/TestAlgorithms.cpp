@@ -1,42 +1,50 @@
-#include <iostream>
-#include <chrono>
-#include <fstream>
-#include "../DLL/DoubleLinkedList.h"
 #include "TestAlgorithms.h"
+#include <iostream>
+#include <fstream>
+#include <chrono>
 
 using namespace std;
-using chrono::high_resolution_clock;
-using chrono::duration_cast;
-using chrono::nanoseconds;
+using namespace std::chrono;
 
-void testAlgorithms(void (*algorithms)(Node**), int iLength, int iNumTests, const std::string& filename) 
+namespace TestAlgorithms {
+
+template<typename T>
+void testAlgorithms(void (*algorithms)(DLL::Node<T>**), int iLength, int iNumTests, const std::string& filename) 
 {
-    ofstream outFile(filename);
+    std::string directory = "DadosDesempenho";
+    std::string fullPath = directory + "/" + filename;
+
+    ofstream outFile(fullPath);
     if (!outFile.is_open()) 
     {
-        cerr << "Unable to open file: " << filename << endl;
+        cerr << "Unable to open file: " << fullPath << endl;
         return;
     }
 
-    // calcula os tempos
+    // Calculate times
     for(int i = 0; i < iNumTests; i++) 
     {
-        Node* head = nullptr;
-        generateRandomList(&head, iLength);
+        DLL::Node<T>* head = nullptr;
+        DLL::generateRandomList<T>(&head, iLength);
         auto timeStart = high_resolution_clock::now();
         algorithms(&head);
         auto timeStop = high_resolution_clock::now();
         auto timeDuration = duration_cast<nanoseconds>(timeStop - timeStart);
         outFile << timeDuration.count() * 1e-9 << endl;
 
-        // Deleta a lista
+        // Delete the list
         while (head != nullptr) 
         {
-            Node* temp = head;
+            DLL::Node<T>* temp = head;
             head = head->ptrNext;
             delete temp;
         }
     }
 
     outFile.close();
+}
+
+// Explicit instantiation of the template functions you plan to use
+template void testAlgorithms<int>(void (*algorithms)(DLL::Node<int>**), int iLength, int iNumTests, const std::string& filename);
+
 }

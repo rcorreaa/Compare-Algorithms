@@ -1,16 +1,19 @@
-#include <iostream>
-#include "../DLL/DoubleLinkedList.h"
 #include "InsertionSort.h"
+#include <iostream>
 
 using namespace std;
+using namespace DLL;
 
-void insertionSort(Node** head) 
+namespace InsertionSort {
+
+template<typename T>
+void insertionSort(DLL::Node<T>** head) 
 {
-    Node* current = (*head)->ptrNext;
+    DLL::Node<T>* current = (*head)->ptrNext;
     while (current != nullptr) 
     {
-        int InsertValue = current->iPayload;
-        Node* temp = current->ptrPrev;
+        T InsertValue = current->iPayload;
+        DLL::Node<T>* temp = current->ptrPrev;
         while (temp != nullptr && temp->iPayload > InsertValue) 
         { 
             temp->ptrNext->iPayload = temp->iPayload;
@@ -27,3 +30,8 @@ void insertionSort(Node** head)
         current = current->ptrNext;
     }
 }
+
+// Explicit instantiation of the template functions you plan to use
+template void insertionSort<int>(DLL::Node<int>**);
+
+} // namespace InsertionSort

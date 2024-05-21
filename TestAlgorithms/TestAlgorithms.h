@@ -1,7 +1,12 @@
 #pragma once
 
-#include "../DLL/DoubleLinkedList.h"
-#include <chrono>
 #include <string>
+#include <chrono>
+#include "../DLL/DoubleLinkedList.h"
 
-void testAlgorithms(void (*algorithms)(Node**), int iLength, int iNumTests, const std::string& filename);
+namespace TestAlgorithms {
+
+template<typename T>
+void testAlgorithms(void (*algorithms)(DLL::Node<T>**), int iLength, int iNumTests, const std::string& filename);
+
+}

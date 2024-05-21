@@ -2,4 +2,11 @@
 
 #include "../DLL/DoubleLinkedList.h"
 
-void insertionSort(Node**);
+using namespace DLL;
+
+namespace InsertionSort {
+
+template<typename T>
+void insertionSort(DLL::Node<T>** head);
+
+}

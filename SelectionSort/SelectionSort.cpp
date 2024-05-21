@@ -1,20 +1,23 @@
-#include <iostream>
-#include "../DLL/DoubleLinkedList.h"
 #include "SelectionSort.h"
+#include <iostream>
 
 using namespace std;
+using namespace DLL;
 
-void selectionSortRuim(Node** head) 
+namespace SelectionSort {
+
+template<typename T>
+void selectionSortRuim(DLL::Node<T>** head) 
 {
-    Node* current = *head;
+    DLL::Node<T>* current = *head;
     while (current != nullptr) 
     {
-        Node* temp = current->ptrNext;
+        DLL::Node<T>* temp = current->ptrNext;
         while (temp != nullptr) 
         {
             if (current->iPayload > temp->iPayload) 
             {
-                int iTemp = temp->iPayload;
+                T iTemp = temp->iPayload;
                 temp->iPayload = current->iPayload;
                 current->iPayload = iTemp;
             }
@@ -24,14 +27,15 @@ void selectionSortRuim(Node** head)
     }
 }
 
-void optimizedselectionSort(Node** head) 
+template<typename T>
+void optimizedSelectionSort(DLL::Node<T>** head) 
 {
-    Node* minNode = nullptr;
-    Node* current = *head;
+    DLL::Node<T>* minNode = nullptr;
+    DLL::Node<T>* current = *head;
     while (current != nullptr) 
     {
         minNode = current;
-        Node* temp = current->ptrNext;
+        DLL::Node<T>* temp = current->ptrNext;
         while (temp != nullptr) 
         {
             if (temp->iPayload < minNode->iPayload) 
@@ -41,10 +45,16 @@ void optimizedselectionSort(Node** head)
             temp = temp->ptrNext;
         }
         if (minNode != current) {
-            int iTemp = minNode->iPayload;
+            T iTemp = minNode->iPayload;
             minNode->iPayload = current->iPayload;
             current->iPayload = iTemp;
         }
         current = current->ptrNext;
     }
+}
+
+// Explicit instantiation of the template functions
+template void selectionSortRuim<int>(DLL::Node<int>**);
+template void optimizedSelectionSort<int>(DLL::Node<int>**);
+
 }

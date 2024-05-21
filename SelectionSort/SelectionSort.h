@@ -2,5 +2,14 @@
 
 #include "../DLL/DoubleLinkedList.h"
 
-void selectionSortRuim(Node**);
-void optimizedselectionSort(Node**);
+using namespace DLL;
+
+namespace SelectionSort {
+
+template<typename T>
+void selectionSortRuim(DLL::Node<T>** head);
+
+template<typename T>
+void optimizedSelectionSort(DLL::Node<T>** head);
+
+}

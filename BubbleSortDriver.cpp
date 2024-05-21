@@ -4,6 +4,8 @@
 #include "TestAlgorithms/TestAlgorithms.h"
 
 using namespace std;
+using namespace TestAlgorithms;
+using namespace BubbleSort;
 
 int main() 
 {
@@ -11,10 +13,10 @@ int main()
     int iNumTests = 100; // 100 listas
 
     cout << "Testing Bubble Sort (Ruim)" << endl;
-    testAlgorithms(bubbleSortRuim, iLength, iNumTests, "BubbleSortRuim.txt");
+    testAlgorithms<int>(bubbleSortRuim<int>, iLength, iNumTests, "BubbleSortRuim.txt");
 
     cout << "Testing Optimized Bubble Sort" << endl;
-    testAlgorithms(optmizedbubbleSort, iLength, iNumTests, "OptimizedBubbleSort.txt");
+    testAlgorithms<int>(optimizedBubbleSort<int>, iLength, iNumTests, "OptimizedBubbleSort.txt");
 
     return 0;
 }

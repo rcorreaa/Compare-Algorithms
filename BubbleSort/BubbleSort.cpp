@@ -1,20 +1,22 @@
-#include <iostream>
-#include "../DLL/DoubleLinkedList.h"
 #include "BubbleSort.h"
+#include <iostream>
 
 using namespace std;
 
-void bubbleSortRuim(Node** head) 
+namespace BubbleSort {
+
+template<typename T>
+void bubbleSortRuim(DLL::Node<T>** head) 
 {
-    Node* current = *head;
+    DLL::Node<T>* current = *head;
     while (current->ptrNext != nullptr) 
     {
-        Node* temp = *head;
+        DLL::Node<T>* temp = *head;
         while (temp->ptrNext != nullptr) 
         {
             if (temp->iPayload > temp->ptrNext->iPayload)
             {
-                int iTemp = temp->iPayload;
+                T iTemp = temp->iPayload;
                 temp->iPayload = temp->ptrNext->iPayload;
                 temp->ptrNext->iPayload = iTemp;
             }
@@ -24,34 +26,40 @@ void bubbleSortRuim(Node** head)
     }
 }
 
-
-void optmizedbubbleSort(Node** head)
+template<typename T>
+void optimizedBubbleSort(DLL::Node<T>** head)
 {
-    Node* last = *head;
+    DLL::Node<T>* last = *head;
     while(last->ptrNext != nullptr)
     {
         last = last->ptrNext;
     }
     
-    Node* current = *head;
+    DLL::Node<T>* current = *head;
     bool bUnordered = false;
     while (current->ptrNext != nullptr) 
     {
-        Node* temp = *head;
+        DLL::Node<T>* temp = *head;
         bUnordered = false;
-        while ((temp->ptrNext != nullptr) & (temp != last)) 
+        while ((temp->ptrNext != nullptr) && (temp != last)) 
         {
             if (temp->iPayload > temp->ptrNext->iPayload)
             {
-                int iTemp = temp->iPayload;
+                T iTemp = temp->iPayload;
                 temp->iPayload = temp->ptrNext->iPayload;
                 temp->ptrNext->iPayload = iTemp;
                 bUnordered = true;
             }
             temp = temp->ptrNext;
         }
-        if(bUnordered == false) break;
+        if(!bUnordered) break;
         current = current->ptrNext;
         last = last->ptrPrev;
     }
 }
+
+// Explicit instantiation of the template functions you plan to use
+template void bubbleSortRuim<int>(DLL::Node<int>**);
+template void optimizedBubbleSort<int>(DLL::Node<int>**);
+
+} 

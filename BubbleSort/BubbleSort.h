@@ -2,6 +2,12 @@
 
 #include "../DLL/DoubleLinkedList.h"
 
-void bubbleSortRuim(Node**);
-void optmizedbubbleSort(Node**);
+namespace BubbleSort {
 
+template<typename T>
+void bubbleSortRuim(DLL::Node<T>** head);
+
+template<typename T>
+void optimizedBubbleSort(DLL::Node<T>** head);
+
+}

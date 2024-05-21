@@ -4,18 +4,6 @@
 
 using namespace std;
 
-int countElements(Node** head)
-{
-    Node* current = *head;
-    int iCount = 0;
-    while(current)
-    {
-        iCount++;
-        current = current->ptrNext;
-    }
-    return iCount;
-}
-
 void ShellSort(Node** head)
 {
     int iLength = countElements(head);
