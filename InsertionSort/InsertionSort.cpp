@@ -30,7 +30,7 @@ void insertionSort(Node<T>** head)
     }
 }
 
-// Explicit instantiation
+
 template void insertionSort<int>(Node<int>**);
 
-} // namespace InsertionSort
+} 

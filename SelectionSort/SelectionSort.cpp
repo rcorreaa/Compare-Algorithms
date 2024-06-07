@@ -52,7 +52,6 @@ void optimizedSelectionSort(Node<T>** head)
     }
 }
 
-// Explicit instantiation of the template functions
 template void selectionSortRuim<int>(Node<int>**);
 template void optimizedSelectionSort<int>(Node<int>**);
 

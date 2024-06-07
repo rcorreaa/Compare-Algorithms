@@ -44,7 +44,6 @@ void testAlgorithms(void (*algorithms)(cpa::Node<T>**), int iLength, int iNumTes
     outFile.close();
 }
 
-// Explicit instantiation of the template functions you plan to use
 template void testAlgorithms<int>(void (*algorithms)(cpa::Node<int>**), int iLength, int iNumTests, const std::string& filename);
 
 }

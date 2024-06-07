@@ -11,19 +11,22 @@ struct Node {
 };
 
 template<typename T>
-Node<T>* createNode(T iPayload);
+Node<T>* createNode(T);
 
 template<typename T>
-void insertFront(Node<T>** head, T iPayload);
+void insertFront(Node<T>**, T);
 
 template<typename T>
-void displayList(Node<T>* node);
+void insertEnd(Node<T>**, T);
 
 template<typename T>
-void generateRandomList(Node<T> **head, int size);
+void displayList(Node<T>*);
 
 template<typename T>
-int countElements(Node<T>** head);
+void generateRandomList(Node<T> **, int);
+
+template<typename T>
+int countElements(Node<T>**);
 
 template<typename T>
 Node<T>* getNode(Node<T>*,int);

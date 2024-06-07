@@ -1,3 +1,4 @@
+#include "../BinaryTree/BinaryTree.h"
 #include "DoubleLinkedList.h"
 #include <iostream>
 #include <cstdlib>
@@ -30,6 +31,24 @@ void insertFront(Node<T>** head, T iPayload)
     }
     (*head) = newNode;
 }
+
+template<typename T>
+void insertEnd(Node<T>** head, T iPayload)
+{
+    Node<T>* newNode = createNode(iPayload);
+    if (*head == nullptr)  (*head) = newNode;
+    else
+    {
+        Node<T>* current = *head;
+        while(current->ptrNext != nullptr)
+        {
+            current = current->ptrNext;
+        }
+        current->ptrNext = newNode;
+        newNode->ptrPrev = current;
+    }
+}
+
 
 template<typename T>
 void displayList(Node<T>* node) 
@@ -92,9 +111,10 @@ Node<T>* getNode(Node<T>* head, int index)
     return current;
 }
 
-// Explicit instantiation
 template Node<int>* createNode<int>(int);
 template void insertFront<int>(Node<int>**, int);
+template void insertEnd<int>(Node<int>**, int);
+template void insertEnd<bt::Node<int>*>(Node<bt::Node<int>*>**, bt::Node<int>*);
 template void displayList<int>(Node<int>*);
 template void generateRandomList<int>(Node<int>**, int);
 template int countElements<int>(Node<int>**);
