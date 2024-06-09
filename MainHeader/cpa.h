@@ -46,4 +46,10 @@ void optimizedSelectionSort(Node<T>** head);
 template<typename T>
 void shellSort(Node<T>** head);
 
+template<typename T>
+void measureGenerationTime(cpa::Node<T>* (*generate)(int), int size, int numTests, const std::string& filename);
+
+template<typename T>
+void measureSearchTime(void (*search)(cpa::Node<T>*), cpa::Node<T>* (*generate)(int), int size, int numTests, const std::string& filename);
+
 }

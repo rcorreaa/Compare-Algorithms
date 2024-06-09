@@ -27,6 +27,4 @@ void traversePreOrder(Node<T>*);
 template <typename T>
 Node<T>* bfsTraversal(Node<T>*, T);
 
-template<typename T>
-void testAlgorithms(void (*algorithm)(cpa::Node<T>**), int iLength, const std::string& filename);
 }
