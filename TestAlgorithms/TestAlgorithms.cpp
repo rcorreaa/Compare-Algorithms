@@ -3,9 +3,11 @@
 #include <fstream>
 #include <chrono>
 #include <windows.h>
+#include "BinaryTree/BinaryTree.h"
 
 using namespace std;
 using namespace std::chrono;
+using namespace bt;
 
 namespace cpa {
 
@@ -72,7 +74,7 @@ void measureGenerationTime(Node<T>* (*generate)(int), int size, int numTests, co
 }
 
 template<typename T>
-void measureSearchTime(void (*search)(Node<T>*), Node<T>* (*generate)(int), int size, int numTests, const std::string& filename) {
+void measureSearchTime(bt::Node<T>* (*search)(Node<T>*), Node<T>* (*generate)(int), int size, int numTests, const std::string& filename) {
     std::string directory = "DadosDesempenho";
     CreateDirectory(directory.c_str(), NULL); // Create directory if it doesn't exist
     std::string fullPath = directory + "/" + filename;
@@ -101,13 +103,13 @@ void measureSearchTime(void (*search)(Node<T>*), Node<T>* (*generate)(int), int 
 template<typename T>
 void deleteTree(Node<T>* root) {
     if (root == nullptr) return;
-    deleteTree(root->left);
-    deleteTree(root->right);
+    deleteTree(root->ptrLeft);
+    deleteTree(root->ptrRight);
     delete root;
 }
 
 template void testAlgorithms<int>(void (*algorithms)(cpa::Node<int>**), int iLength, int iNumTests, const std::string& filename);
 template void measureGenerationTime<int>(Node<int>* (*generate)(int), int size, int numTests, const std::string& filename);
-template void measureSearchTime<int>(void (*search)(Node<int>*), Node<int>* (*generate)(int), int size, int numTests, const std::string& filename);
+template void measureSearchTime<int>(bt::Node<int>* (*search)(Node<int>*), Node<int>* (*generate)(int), int size, int numTests, const std::string& filename);
 
 }
