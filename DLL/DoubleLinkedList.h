@@ -1,5 +1,5 @@
 #pragma once
-
+#include <string>
 
 namespace cpa {
 
@@ -30,5 +30,11 @@ int countElements(Node<T>**);
 
 template<typename T>
 Node<T>* getNode(Node<T>*,int);
+
+template<typename T>
+void deleteDLL(Node<T>* head);
+
+template<typename T>
+void measureDLLCreation(void (*generateList)(Node<T>**, int), int size, int numTests, const std::string& filename);
 
 }
