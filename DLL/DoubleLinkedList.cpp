@@ -3,8 +3,11 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
+#include <chrono>
 
 using namespace std;
+using namespace std::chrono;
 
 namespace cpa {
 
@@ -111,6 +114,46 @@ Node<T>* getNode(Node<T>* head, int index)
     return current;
 }
 
+template<typename T>
+void deleteDLL(Node<T>* head)
+{
+    while (head != nullptr) 
+    {
+        Node<T>* temp = head;
+        head = head->ptrNext;
+        delete temp;
+    }
+}
+
+template<typename T>
+void measureDLLCreation(void (*generateList)(Node<T>**, int), int size, int numTests, const std::string& filename) 
+{
+    std::string directory = "DadosDesempenho";
+    std::string fullPath = directory + "/" + filename;
+
+    ofstream outFile(fullPath);
+    if (!outFile.is_open()) 
+    {
+        cerr << "Unable to open file: " << fullPath << endl;
+        return;
+    }
+
+    for(int i = 0; i < numTests; i++) 
+    {
+        Node<T>* head = nullptr;
+        auto timeStart = high_resolution_clock::now();
+        generateList(&head, size);
+        auto timeStop = high_resolution_clock::now();
+        auto timeDuration = duration_cast<nanoseconds>(timeStop - timeStart);
+        outFile << timeDuration.count() * 1e-9 << endl;
+        
+        // Limpar a lista gerada
+        deleteDLL(head);
+    }
+
+    outFile.close();
+}
+
 template Node<int>* createNode<int>(int);
 template void insertFront<int>(Node<int>**, int);
 template void insertEnd<int>(Node<int>**, int);
@@ -119,5 +162,7 @@ template void displayList<int>(Node<int>*);
 template void generateRandomList<int>(Node<int>**, int);
 template int countElements<int>(Node<int>**);
 template Node<int>* getNode(Node<int>*, int);
-
+template void deleteDLL(Node<int>*);
+template void measureDLLCreation<int>(void (*)(Node<int>**, int), int size, int numTests, const std::string& filename);
 }
+
