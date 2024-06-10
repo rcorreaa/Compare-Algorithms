@@ -1,33 +1,32 @@
 #include "../MainHeader/cpa.h"
 #include "BinaryTree.h"
 #include <iostream>
-#include <ctime>
-#include <fstream>
 #include <chrono>
-#include <functional>
-#include <windows.h>
-#include<string>
+#include <fstream>
+#include <cstdlib>
+#include <ctime>
+#include <string>
 
 using namespace std;
 using namespace std::chrono;
 
-namespace bt {
+namespace bt{
 
-// Função para criar um novo nó
 template <typename T>
 Node<T>* newNode(T iData)
 {
     Node<T>* tmp = new Node<T>();
+  
     if (tmp != nullptr)
     {
         tmp->iPayload = iData;
         tmp->ptrLeft = nullptr;
         tmp->ptrRight = nullptr;
     }
+  
     return tmp;
 }
 
-// Função para inserir um nó na árvore
 template <typename T>
 Node<T>* insertNode(Node<T>* startingNode, T iData)
 {
@@ -48,7 +47,6 @@ Node<T>* insertNode(Node<T>* startingNode, T iData)
     return startingNode;
 }
 
-// Função para buscar um nó usando DFS
 template <typename T>
 Node<T>* searchNodeDFS(Node<T>* startingNode, T iData)
 {
@@ -58,7 +56,7 @@ Node<T>* searchNodeDFS(Node<T>* startingNode, T iData)
     else return searchNodeDFS(startingNode->ptrRight, iData);
 }
 
-// Função para gerar uma árvore binária aleatória
+
 Node<int>* generateRandomTree(int numNodes)
 {
     Node<int>* root = nullptr;
@@ -73,7 +71,6 @@ Node<int>* generateRandomTree(int numNodes)
     return root;
 }
 
-// Função para travessia em pré-ordem
 template <typename T>
 void traversePreOrder(Node<T>* ptrStartingNode)
 {
@@ -85,7 +82,6 @@ void traversePreOrder(Node<T>* ptrStartingNode)
     }
 }
 
-// Função para busca em largura (BFS)
 template <typename T>
 Node<T>* bfsTraversal(Node<T>* startingNode, T target)
 {
@@ -124,11 +120,75 @@ Node<T>* bfsTraversal(Node<T>* startingNode, T target)
     return nullptr;
 }
 
-// Instanciações explícitas das templates
+template <typename T>
+void deleteTree(Node<T>* node)
+{
+    if (node == nullptr) return;
+
+    deleteTree(node->ptrLeft);
+    deleteTree(node->ptrRight);
+    
+    delete node;
+}
+
+void measureBinaryTreeCreation(Node<int>* (*generateTree)(int), int numNodes, int numTests, const std::string& filename) 
+{
+    std::string directory = "DadosDesempenho";
+    std::string fullPath = directory + "/" + filename;
+
+    ofstream outFile(fullPath);
+    if (!outFile.is_open()) 
+    {
+        cerr << "Unable to open file: " << fullPath << endl;
+        return;
+    }
+
+    for(int i = 0; i < numTests; i++) 
+    {
+        auto timeStart = high_resolution_clock::now();
+        Node<int>* tree = generateTree(numNodes);
+        auto timeStop = high_resolution_clock::now();
+        auto timeDuration = duration_cast<nanoseconds>(timeStop - timeStart);
+        outFile << timeDuration.count() * 1e-9 << endl;
+        
+        // Limpar a árvore gerada
+        deleteTree(tree);
+    }
+
+    outFile.close();
+}
+
+void benchmarkSearchMethod(Node<int>* (*searchMethod)(Node<int>*, int), int numNodes, int iterations, const std::string& filename) {
+    std::ofstream outFile("DadosDesempenho/" + filename);
+    if (!outFile.is_open()) {
+        std::cerr << "Unable to open file";
+        return;
+    }
+
+    for (int i = 0; i < iterations; ++i) {
+        Node<int>* root = generateRandomTree(numNodes);
+        int target = rand() % 100 + 1;  // Alvo aleatório para a busca
+
+        auto timeStart = high_resolution_clock::now();
+
+        searchMethod(root, target);
+
+        auto timeStop = high_resolution_clock::now();
+        auto timeDuration = duration_cast<nanoseconds>(timeStop - timeStart);
+        outFile << timeDuration.count() * 1e-9 << endl;
+
+        // Liberar a memória da árvore
+        deleteTree(root);
+    }
+
+    outFile.close();
+}
+
 template Node<int>* newNode<int>(int);
 template Node<int>* insertNode<int>(Node<int>*, int);
-template Node<int>* searchNodeDFS<int>(Node<int>*, int);
-template void traversePreOrder<int>(Node<int>*);
-template Node<int>* bfsTraversal<int>(Node<int>*, int);
+template Node<int>* searchNodeDFS(Node<int>*, int);
+template void traversePreOrder(Node<int>*);
+template Node<int>* bfsTraversal(Node<int>*,int);
+template void deleteTree(Node<int>*);
 
-} // namespace bt
+}
